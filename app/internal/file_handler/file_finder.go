@@ -14,7 +14,7 @@ func FindSmallestLargestFileNames(dirPath string) (string, string, bool) {
 	fileNames := getAndFilterFilesNameInDir(dirPath)
 
 	if len(fileNames) < 2 {
-		log.Printf("WARNING: Not enough files found in the \"%s\"", dirPath)
+		log.Printf("warning: Not enough files found in the \"%s\"", dirPath)
 		return "", "", false
 	}
 
@@ -49,7 +49,7 @@ func getAndFilterFilesNameInDir(dirPath string) []string {
 	_ = filepath.Walk(dirPath, func(path string, info os.FileInfo, err error) error {
 
 		if err != nil {
-			log.Printf("ERROR: %s ", err.Error())
+			log.Printf("error: %s ", err.Error())
 			return nil
 		}
 
