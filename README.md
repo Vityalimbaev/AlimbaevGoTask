@@ -9,6 +9,7 @@ For run program:
 
 
     go mod vendor
+
     go run app/cmd/main/main.go
 
   
