@@ -37,8 +37,8 @@ func RewriteFiles(minFilePath, maxFilePath string) {
 
 	var wg sync.WaitGroup
 
-	go w1(ch1, ch2, maxSize, file1, &wg)
-	go w1(ch2, ch1, maxSize, file2, &wg)
+	go rwWorker(ch1, ch2, maxSize, file1, &wg)
+	go rwWorker(ch2, ch1, maxSize, file2, &wg)
 
 	wg.Add(2)
 
@@ -54,7 +54,7 @@ func RewriteFiles(minFilePath, maxFilePath string) {
 	log.Println("rewrite is done")
 }
 
-func w1(in <-chan byte, out chan<- byte, maxCountOfIterations int64, file *os.File, group *sync.WaitGroup) {
+func rwWorker(in <-chan byte, out chan<- byte, maxCountOfIterations int64, file *os.File, group *sync.WaitGroup) {
 
 	defer func() {
 		close(out)
