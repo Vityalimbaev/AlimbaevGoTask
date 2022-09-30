@@ -7,7 +7,7 @@ import (
 )
 
 type AppConfig struct {
-	DataPath string `mapstructure:"DIR_PATH,omitempty"`
+	DataPath string `mapstructure:"DIR_PATH"`
 }
 
 func GetConfig() AppConfig {

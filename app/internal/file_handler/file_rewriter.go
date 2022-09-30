@@ -9,17 +9,7 @@ import (
 	"sync"
 )
 
-type ChanMsg struct {
-	offset int
-	value  byte
-}
-
-type FileMutex struct {
-	sync.Mutex
-	file *os.File
-}
-
-func RewriteFiles(minFilePath, maxFilePath string) error {
+func RewriteFiles(minFilePath, maxFilePath string) {
 
 	file1, _ := os.OpenFile(minFilePath, os.O_RDWR, os.ModeAppend)
 	file2, _ := os.OpenFile(maxFilePath, os.O_RDWR, os.ModeAppend)
@@ -53,6 +43,7 @@ func RewriteFiles(minFilePath, maxFilePath string) error {
 	wg.Add(2)
 
 	log.Println("start of rewriting")
+
 	ch1 <- 0
 
 	wg.Wait()
@@ -61,8 +52,6 @@ func RewriteFiles(minFilePath, maxFilePath string) error {
 	_ = file2.Truncate(fileSize1)
 
 	log.Println("rewrite is done")
-
-	return nil
 }
 
 func w1(in <-chan byte, out chan<- byte, maxCountOfIterations int64, file *os.File, group *sync.WaitGroup) {
@@ -89,7 +78,6 @@ func w1(in <-chan byte, out chan<- byte, maxCountOfIterations int64, file *os.Fi
 		b, err := r.ReadByte()
 
 		if err != nil && !errors.Is(err, io.EOF) {
-
 			log.Printf("read error (%v) : %v", file.Name(), err)
 		}
 

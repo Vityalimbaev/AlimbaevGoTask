@@ -11,6 +11,6 @@ func main() {
 	minFilePath, maxFilePath, ok := file_handler.FindSmallestLargestFileNames(conf.DataPath)
 
 	if ok {
-		_ = file_handler.RewriteFiles(minFilePath, maxFilePath)
+		file_handler.RewriteFiles(minFilePath, maxFilePath)
 	}
 }

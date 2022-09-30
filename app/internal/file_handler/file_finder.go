@@ -49,7 +49,7 @@ func getAndFilterFilesNameInDir(dirPath string) []string {
 	_ = filepath.Walk(dirPath, func(path string, info os.FileInfo, err error) error {
 
 		if err != nil {
-			log.Printf("ERROR: %e ", err)
+			log.Printf("ERROR: %s ", err.Error())
 			return nil
 		}
 
